@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if (numRows <= 1)
+            return s;                         //当numRows为一行时输出为s本身
+            
+        const int len = (int)s.length();
+        string *str = new string[numRows];    //定义动态数组、字符串
+        
+        int row = 0, step = 1;
+        for (int i = 0; i < len; i++)
+        {
+            str[row].push_back(s[i]);
+            
+            if (row == 0)
+                step = 1;                     //此时row为起始行，对row进行+1操作
+            else if (row == numRows - 1)
+                step = -1;                    //此时row为终止行，对row进行-1操作
+                
+            row = row + step;
+        }
+        s.clear();                        
+        for (int j = 0; j < numRows; j++)
+        { 
+            s.append(str[j]);
+        }
+        delete[] str;
+        return s;
+    }
+};
